@@ -24,4 +24,9 @@ export class DataService {
     const fecha_final = `${hoy.getFullYear()}-${mesString}-${(ultimoDia<10)?'0'+ultimoDia:ultimoDia}`;
     return this.executeQuery<Respuesta>(`/discover/movie?primary_release_date.gte=${fecha_ini}&primary_release_date.lte=${fecha_final}`);
   }
+
+  getPopulares(){
+    const query=`/discover/movie?sort_by=popularity.desc`;
+    return this.executeQuery<Respuesta>(query);
+  }
 }
