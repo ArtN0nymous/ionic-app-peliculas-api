@@ -8,7 +8,7 @@ import { Pelicula } from '../../interfaces/interfaces';
 })
 export class SlideShowPosterComponent  implements OnInit {
   slideOpts={
-    slidesPerView:4,
+    slidesPerView:3.3,
     freeMode:true
   }
   @Input() peliculas!:Pelicula[];

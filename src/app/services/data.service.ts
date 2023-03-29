@@ -7,12 +7,11 @@ import { Respuesta } from '../interfaces/interfaces';
   providedIn: 'root'
 })
 export class DataService {
-
+  popularesPage:number=0;
   constructor(private http:HttpClient) { }
   private executeQuery<T>(query:string){
     query=environment.apiUrl+query;
     query+=`&api_key=${environment.apiKey}&language=es&include_image_language=es`;
-    console.log(query);
     return this.http.get<T>(query);
   }
   getCartelera(){
@@ -26,7 +25,8 @@ export class DataService {
   }
 
   getPopulares(){
-    const query=`/discover/movie?sort_by=popularity.desc`;
+    this.popularesPage+=1;
+    const query=`/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
     return this.executeQuery<Respuesta>(query);
   }
 }

@@ -15,8 +15,15 @@ export class Tab1Page implements OnInit {
       this.dataService.getCartelera().subscribe((res:Respuesta)=>{
         this.peliculas=res.results;
       });
-      this.dataService.getPopulares().subscribe((res:Respuesta)=>{
-        this.populares=res.results;
-      });
+      this.getPopulares();
+  }
+  cargarMas(){
+    this.getPopulares();
+  }
+  getPopulares(){
+    this.dataService.getPopulares().subscribe((res:Respuesta)=>{
+      const array = [...this.populares,...res.results];
+      this.populares=array;
+    });
   }
 }
