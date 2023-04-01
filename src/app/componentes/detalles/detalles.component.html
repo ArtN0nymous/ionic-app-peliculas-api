@@ -1,3 +1,81 @@
-<p>
-  detalles works!
-</p>
+<ion-content *ngIf="details">
+  <ion-label class="titulo">
+    <h1>
+      {{details.title}}
+    </h1>
+  </ion-label>
+  <img [src]="details.backdrop_path|imagen" *ngIf="details.backdrop_path">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="4" class="poster-detalle-sobre">
+        <ion-card class="poster">
+          <img [src]="details.poster_path|imagen" *ngIf="details.poster_path">
+        </ion-card> 
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-icon slot="start" name="thumbs-up" color="success"></ion-icon>
+          <ion-label>Rating</ion-label>
+          <ion-note slot="end" color="success">
+            {{details.vote_average}}
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon slot="start" name="people" color="primary"></ion-icon>
+          <ion-label>Votos</ion-label>
+          <ion-note slot="end" color="primary">
+            {{details.vote_count}}
+          </ion-note>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" class="ion-text-justify">
+        <ion-label>{{details.overview |slice: 0:limite_texto}}</ion-label>
+        <ion-label color="primary" (click)="mostrarMas()" [hidden]="label_estatus">...Mostrar más</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-segment [scrollable]="true" color="success">
+          <ion-segment-button *ngFor="let item of details.genres" [value]="item.id">
+            <ion-label>{{item.name}}</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col>
+        <ion-label>Actores</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-slides mode="ios" scrollbar="ios" [options]="slideOpts">
+    <ion-slide *ngFor="let item of actores">
+      <ion-card class="card-actor">
+        <ion-img [src]="item.profile_path|imagen" *ngIf="item.profile_path"></ion-img>
+        <ion-img src="../../../assets/no-avatar.jpg" *ngIf="!item.profile_path"></ion-img>
+        <ion-label class="actor-name">{{item.name}}</ion-label>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="regresar()">
+        <ion-icon slot="start" name="return-down-back"></ion-icon>
+        Regresar
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="favorito()" color="danger">
+        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

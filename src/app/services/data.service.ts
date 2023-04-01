@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Respuesta } from '../interfaces/interfaces';
+import { Respuesta, Detalles, Creditos } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class DataService {
   private executeQuery<T>(query:string){
     query=environment.apiUrl+query;
     query+=`&api_key=${environment.apiKey}&language=es&include_image_language=es`;
+    console.log(query);
     return this.http.get<T>(query);
   }
   getCartelera(){
@@ -28,5 +29,11 @@ export class DataService {
     this.popularesPage+=1;
     const query=`/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
     return this.executeQuery<Respuesta>(query);
+  }
+  getDetails(id:number){
+    return this.executeQuery<Detalles>(`/movie/${id}?a=1`);
+  }
+  getCreditos(id:number){
+    return this.executeQuery<Creditos>(`/movie/${id}/credits?a=1`);
   }
 }
