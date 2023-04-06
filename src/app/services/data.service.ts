@@ -36,4 +36,8 @@ export class DataService {
   getCreditos(id:number){
     return this.executeQuery<Creditos>(`/movie/${id}/credits?a=1`);
   }
+  buscarPelicula(title:string){
+    const query=`/search/movie?query=${title}`;
+    return this.executeQuery<Respuesta>(query);
+  }
 }

@@ -4,12 +4,12 @@
       {{details.title}}
     </h1>
   </ion-label>
-  <img [src]="details.backdrop_path|imagen" *ngIf="details.backdrop_path">
+  <img [src]="details.backdrop_path|imagen">
   <ion-grid fixed>
     <ion-row>
       <ion-col size="4" class="poster-detalle-sobre">
         <ion-card class="poster">
-          <img [src]="details.poster_path|imagen" *ngIf="details.poster_path">
+          <img [src]="details.poster_path|imagen">
         </ion-card> 
       </ion-col>
       <ion-col>
@@ -74,7 +74,8 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="favorito()" color="danger">
-        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="heart" *ngIf="isInfavorite"></ion-icon>
+        <ion-icon slot="icon-only" name="heart-outline" *ngIf="!isInfavorite"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

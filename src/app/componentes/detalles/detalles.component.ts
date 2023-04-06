@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Detalles, Creditos, Cast } from '../../interfaces/interfaces';
 import { modalController } from '@ionic/core';
+import { DataLocalService } from '../../services/data-local.service';
 
 @Component({
   selector: 'app-detalles',
@@ -15,11 +16,12 @@ export class DetallesComponent  implements OnInit {
   actores:Cast[]=[];
   limite_texto:number=100;
   label_estatus:boolean=false;
+  isInfavorite = false;
   slideOpts={
     slidesPerView:3,
     freeMode:true
   }
-  constructor(private dataService:DataService) { }
+  constructor(private dataService:DataService,private dataLocalService:DataLocalService) { }
 
   ngOnInit() {
     this.getDetails();
@@ -28,6 +30,9 @@ export class DetallesComponent  implements OnInit {
   getDetails(){
     this.dataService.getDetails(this.id).subscribe((res:Detalles)=>{
       this.details=res;
+      this.dataLocalService.isInFavorite(this.details.id).then((res)=>{
+        this.isInfavorite=res;
+      });
     });
   }
   getCreditos(){
@@ -46,6 +51,7 @@ export class DetallesComponent  implements OnInit {
     modalController.dismiss();
   }
   favorito(){
-    console.log('Favorito');
+    this.dataLocalService.guardarPelicula(this.details);
+    this.isInfavorite=(this.isInfavorite)?false:true;
   }
 }
