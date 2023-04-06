@@ -109,3 +109,12 @@ export interface Cast {
     job?:                 string;
 }
 
+export interface Generos {
+    genres: Genero[];
+}
+
+export interface Genero {
+    id:   number;
+    name: string;
+}
+

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Respuesta, Detalles, Creditos } from '../interfaces/interfaces';
+import { Respuesta, Detalles, Creditos, Generos } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +39,8 @@ export class DataService {
   buscarPelicula(title:string){
     const query=`/search/movie?query=${title}`;
     return this.executeQuery<Respuesta>(query);
+  }
+  getGeneros(){
+    return this.executeQuery<Generos>('/genre/movie/list?a=1')
   }
 }

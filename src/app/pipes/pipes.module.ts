@@ -8,7 +8,7 @@ import { ParesPipe } from './pares.pipe';
 @NgModule({
   declarations: [
     ImagenPipe,
-    ParesPipe
+    ParesPipe,
   ],
   exports:[ImagenPipe,ParesPipe],
   imports: [

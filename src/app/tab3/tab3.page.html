@@ -4,9 +4,11 @@
       <ion-col>Fvoritos</ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="6" *ngFor="let item of peliculas">
+  <ion-grid fixed *ngFor="let peliculas of PeliculasFiltradas">
+    <div *ngIf="peliculas.pelis.length>0">
+      <ion-label>{{peliculas.genero}}</ion-label>
+      <ion-row>
+      <ion-col size="6" *ngFor="let item of peliculas.pelis">
         <ion-card>
           <img [src]="item.poster_path|imagen">
           <ion-card-header>
@@ -18,5 +20,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
+    </div>
+    
   </ion-grid>
 </ion-content>
